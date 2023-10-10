@@ -1,5 +1,11 @@
+<script setup lang="ts">
+import { Header, Footer } from '#components'
+</script>
+
 <template>
   <div>
-    <NuxtWelcome />
+    <Header />
+    <NuxtPage />
+    <Footer />
   </div>
 </template>

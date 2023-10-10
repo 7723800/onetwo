@@ -1,0 +1,18 @@
+$aura-green: #5D9B38;
+$aura-main: #373535;
+$border-radius: 5px;
+$grey: #C4C4C4;
+$red: #ec5858;
+$header-height: 50px;
+$header-height-widescreen: 60px;
+$box-shadow: 0 3px 7px 0 rgba(0,0,0,.2);
+$green-shadow: 0 3px 7px 0 rgba($aura-green, .3);
+
+// media
+$desktop-width: 1280px;
+$laptop-width: 1025px;
+$mobile-width: 480px;
+// Media queries as strings
+$desktop: "(min-width: #{$desktop-width + 1})";
+$mobile: "(max-width: #{$mobile-width})";
+$laptop: "(min-width: #{$laptop-width}) and (max-width: #{$desktop-width})";

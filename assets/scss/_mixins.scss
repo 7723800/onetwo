@@ -1,0 +1,152 @@
+@mixin header {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+  .back {
+    position: absolute;
+    left: 0;
+    cursor: pointer;
+    svg {
+      width: 1.25rem;
+    }
+    @include get-media($laptop, $desktop) {
+      display: none;
+    }
+  }
+  .title {
+    flex: 1;
+    h3 {
+      text-align: center;
+      font-size: 1.25rem;
+    }
+  }
+}
+
+
+@mixin plusIcon {
+  @include get-media($laptop, $desktop) {
+      margin-left: 1em;
+  }
+  &::after {
+    content: '';
+    width: 13px;
+    border-bottom: 1px solid;
+    position: absolute;
+    top: 11px;
+    right: 0;
+  }
+  &::before {
+    content: '';
+    height: 13px;
+    border-left: 1px solid;
+    position: absolute;
+    top: 5px;
+    bottom: 0;
+    right: 6px;
+    transition: transform .35s;
+  }
+}
+
+@mixin swiperPagination($bottom, $width: 25%) {
+  bottom: $bottom !important;
+  left: 0;
+  right: 0;
+  &-bullet {
+    width: $width;
+    border-radius: 1px;
+    margin: 0 0.25rem;
+    height: 4px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.5);
+    transition: all 0.3s;
+    background: $aura-main;
+    opacity: 0.6;
+    &-active {
+      background: #92c83e;
+      opacity: 1;
+    }
+  }
+}
+
+@mixin customInputPicker {
+  input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      left: 0;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      &:checked ~ .checkmark {
+          background-color: $aura-green;
+          border-color: $aura-green;
+          &:after {
+              display: block;
+          }
+      }
+      &:disabled ~ label {
+          color: $grey;
+      }
+  }
+  label {
+      flex: 1;
+  }
+  .checkmark {
+    position: relative;
+    height: 23px;
+    width: 23px;
+    border: 1px solid $grey;
+    border-radius: $border-radius;
+    pointer-events: none;
+    margin-right: 0.85rem;
+    transition: all 300ms linear;
+    &:after {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 4px;
+      width: 4px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      display: none;
+    }
+  }
+}
+
+@mixin bgLoadingAnimation {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background: #f6f7f8;
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  position: relative;
+}
+
+// Converts a list to a string with delimiters between elements
+@function join-list($list, $separator: ", ") {
+  $result-string: "";
+
+  @each $item in $list {
+    // Index of the current item of `$list` list
+    $index: index($list, $item);
+    $result-string: $result-string + $item;
+
+    // If this is not the last item, adds separator
+    @if ($index != length($list)) {
+      $result-string: $result-string + $separator;
+    }
+  }
+
+  @return $result-string;
+}
+
+@mixin get-media($medias...) {
+  @media #{join-list($medias)} {
+    @content;
+  }
+}
