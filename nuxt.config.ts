@@ -32,5 +32,5 @@ export default defineNuxtConfig({
     observerConfig: {
       // See IntersectionObserver documentation
     }
-  }
+  },
 })

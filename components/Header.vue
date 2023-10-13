@@ -383,7 +383,7 @@ onMounted(() => {
       left: 0;
       right: 0;
       bottom: 0;
-      background: $aura-green;
+      background: #565656;
       z-index: 110;
       color: white;
       svg {
@@ -472,7 +472,7 @@ onMounted(() => {
         height: $header-height;
         width: 100%;
         border-top: 1px solid white;
-        background-color: $aura-green;
+        background-color: #565656;
         .contact-us {
           display: flex;
           align-items: flex-end;

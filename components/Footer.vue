@@ -15,7 +15,7 @@
             </a>
           </div>
           <div class="info">
-            <div class="copyright">&copy; {{ new Date().getFullYear() }} ONE•TWO</div>
+            <div class="copyright">&copy; {{ new Date().getFullYear() }} ONE TWO</div>
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
   .footer {
     color: white;
     height: 160px;
-    background-color: $aura-green;
+    background-color: #565656;
     svg {
       fill: white;
     }

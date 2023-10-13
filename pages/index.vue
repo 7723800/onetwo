@@ -140,7 +140,7 @@ onBeforeMount(() => {
             <span class="text">+7 (777) 696 00 44</span>
             </a>
         </div>
-        <a href="mailto:auradostavka@mail.ru">
+        <a href="mailto:onetwo@mail.ru">
           <h3 class="title">onetwo@mail.ru</h3>
         </a>
       </section>
@@ -274,7 +274,7 @@ onBeforeMount(() => {
     position: relative;
     margin: 0 -1rem;
     padding: 0.85rem;
-    background-color: $aura-green;
+    background-color: #565656;
     color: white;
     h1 {
       margin-bottom: 0 !important;
