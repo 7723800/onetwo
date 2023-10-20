@@ -2,33 +2,34 @@
 // import { ref, onMounted, onActivated, onBeforeMount } from 'vue'
 import { DummyMenu } from '#components'
 import Swiper from 'swiper';
-interface NamedParams {
-    numOne: number,
-    numTwo: number
-}
 
 const isPageLoaded = ref<boolean>(false)
 const totalSliders = reactive([])
-const populars = reactive([])
-const categories = reactive([])
+let populars: Array<Product> = reactive([])
+let categories: Array<Category> = reactive([])
 const sliders = reactive([])
 
-const calcNumbers = ({numOne, numTwo}: NamedParams): number => {
-    return numOne + numTwo
+const showProductCard = async () => {
+  const { data, error, pending } = await useApiFetch<MenuResponse>("/v1/menu", { 
+    method: "POST"
+  })
+  categories = data.value!.data
+  populars = categories[0].products
+  isPageLoaded.value = true
 }
 
-const showProductCard = (index: string) => {
-    console.log(index);
-}
+onNuxtReady(() => {
+  showProductCard()
+})
+
 onMounted(() => {
-    console.log('Component Mounted');
-
+  // console.log(runtimeConfig.public.baseURL);
 })
 onActivated(() => {
-    console.log('Component Activated');
+    // console.log('Component Activated');
 })
 onBeforeMount(() => {
-    console.log('Component onBeforeMount');
+    // console.log('Component onBeforeMount');
 })
 
 </script>
@@ -45,48 +46,45 @@ onBeforeMount(() => {
           </div>
           <div v-else class="swiper-container">
             <div class="swiper-wrapper">
-              <div v-for="slider in sliders" class="swiper-slide">
-                <client-only>
-                  <!-- <vue-load-image> -->
-                    <img src="/images/swiper-loader.jpg" class="event-image" v-lazy-load/>
-                    <!-- <img slot="preloader" src="/images/swiper-loader.jpg" class="event-image"/> -->
-                  <!-- </vue-load-image> -->
-                </client-only>
+              <div class="swiper-slide">
+                <!-- <ClientOnly> -->
+                    <img src="/images/onetwo_logo.jpeg" class="event-image" v-lazy-load/>
+                  <!-- </ClientOnly> -->
               </div>
             </div>
-            <div v-show="isPageLoaded && totalSliders.length > 1" class="swiper-pagination"></div>
+            <!-- <div v-show="isPageLoaded && totalSliders.length > 1" class="swiper-pagination"></div> -->
           </div>
         </Transition>
-        <div v-show="isPageLoaded && totalSliders.length > 2" class="next-events"><svg viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.78788L8.48329 0L0 10L8.48329 20L10 18.2121L3.03342 10L10 1.78788Z"/></svg></div>
-        <div v-show="isPageLoaded && totalSliders.length > 2" class="prev-events"><svg viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.78788L8.48329 0L0 10L8.48329 20L10 18.2121L3.03342 10L10 1.78788Z"/></svg></div>
+        <!-- <div v-show="isPageLoaded && totalSliders.length > 2" class="next-events"><svg viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.78788L8.48329 0L0 10L8.48329 20L10 18.2121L3.03342 10L10 1.78788Z"/></svg></div>
+        <div v-show="isPageLoaded && totalSliders.length > 2" class="prev-events"><svg viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.78788L8.48329 0L0 10L8.48329 20L10 18.2121L3.03342 10L10 1.78788Z"/></svg></div> -->
       </section>
       <!-- mobile intro end -->
       <section class="home-popular">
         <h1 class="title">Популярное</h1>
         <!-- mobile populars start -->
-        <!-- <transition name="fade-dummy" mode="out-in"> -->
+        <Transition name="fade-dummy" mode="out-in">
           <DummyMenu v-if="!isPageLoaded"></DummyMenu>
           <div v-else class="menu">
-            <div v-for="popular in populars" @click="showProductCard('test')" class="menu-item">
+            <div v-for="popular in populars" class="menu-item">
               <div class="menu-image">
-                <!-- <img v-lazy="popular.product.pictures[0]"/> -->
+                <img :src="popular.imageUrl"/>
                 <!-- <transition name="scale"> -->
                   <!-- <div v-show="popular.product.quantity" class="in-cart">{{ popular.product.quantity }}</div> -->
                 <!-- </transition> -->
               </div>
-              <div class="menu-label">popular.product.name</div>
+              <div class="menu-label">{{ popular.name }}</div>
             </div >
           </div>
-        <!-- </transition> -->
+        </Transition>
         <!-- mobile populars end -->
         <!-- widescreen populars start -->
         <div class="menu-widescreen menu-widescreen__popular">
-            <dummy-menu v-if="!isPageLoaded"></dummy-menu>
+            <DummyMenu v-if="!isPageLoaded"></DummyMenu>
             <div v-else class="swiper-container">
               <div class="swiper-wrapper">
-                <div v-for="popular in populars" @click="showProductCard('popular.product')" class="swiper-slide">
+                <div v-for="category in categories" class="swiper-slide">
                   <div class="menu-widescreen_slide">
-                    <!-- <img v-lazy="popular.product.pictures[0]"/> -->
+                    <img :src="category.imageUrl"/>
                     <!-- <transition name="scale">
                       <div v-show="popular.product.quantity" class="in-cart">{{ popular.product.quantity }}</div>
                     </transition> -->
@@ -103,17 +101,17 @@ onBeforeMount(() => {
       <section class="home-menu">
         <h1 class="title">Меню</h1>
         <!-- modile menu start -->
-        <transition name="fade-dummy" mode="out-in">
+        <Transition name="fade-dummy" mode="out-in">
           <DummyMenu v-if="!isPageLoaded"></DummyMenu>
           <div v-else class="menu">
-            <nuxt-link v-for="category in categories" :key="1" :to="{ name: 'menu', query: { c: 'category.slug' }, params: { slideIndex: 'category.index' } }" class="menu-item">
+            <NuxtLink v-for="category in categories" class="menu-item">
               <div class="menu-image">
-                <!-- <img v-lazy="'test'"/> -->
+                <img :src="category.imageUrl" />
               </div>
-              <div class="menu-label">category.name</div>
-            </nuxt-link>
+              <div class="menu-label">{{ category.name }}</div>
+            </NuxtLink>
           </div>
-        </transition>
+        </Transition>
         <!-- modile menu end -->
         <!-- widescreen menu start -->
         <div class="menu-widescreen menu-widescreen__product">

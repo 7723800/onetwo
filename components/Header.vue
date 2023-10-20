@@ -88,7 +88,7 @@ onMounted(() => {
         <div class="header-inner">
           <!-- widescreen logo -->
            <NuxtLink :to="{ name: 'index' }" class="logo">
-              <img src="/images/aura-header-logo.svg">
+              <!-- <img src="/images/aura-header-logo.svg"> -->
            </NuxtLink>
           <!-- widescreen logo -->
   
@@ -115,8 +115,8 @@ onMounted(() => {
             <svg class="hamburger" viewBox="0 0 29 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 24H20.7143V21.1111H0V24ZM0 13.3333H15.1905V10.5556H0V13.3333ZM0 0V2.66667H29V0H0Z"/></svg>
           </div>
           <div class="location">
-            <!-- <svg class="time" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg> -->
-            <span>Астана</span>
+            <svg class="time" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+            <span>8:00-00:00</span>
           </div>
           <div @click="toggleMobileBasket" class="cart">
             <svg class="basket" viewBox="0 0 33 30" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24.0387 11.0259L17.5434 1.00272C17.2616 0.574902 16.787 0.360992 16.3125 0.360992C15.838 0.360992 15.3634 0.574902 15.0816 1.018L8.58631 11.0259H1.48295C0.667329 11.0259 0 11.7135 0 12.5538C0 12.6913 0.0148295 12.8289 0.0593181 12.9664L3.82602 27.1302C4.1671 28.4137 5.30898 29.361 6.6733 29.361H25.9517C27.316 29.361 28.4579 28.4137 28.8138 27.1302L32.5805 12.9664L32.625 12.5538C32.625 11.7135 31.9577 11.0259 31.142 11.0259H24.0387ZM11.8636 11.0259L16.3125 4.30304L20.7614 11.0259H11.8636ZM16.3125 23.2493C14.6812 23.2493 13.3466 21.8742 13.3466 20.1934C13.3466 18.5127 14.6812 17.1376 16.3125 17.1376C17.9438 17.1376 19.2784 18.5127 19.2784 20.1934C19.2784 21.8742 17.9438 23.2493 16.3125 23.2493Z" fill="#373535"/></svg>

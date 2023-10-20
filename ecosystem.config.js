@@ -1,11 +1,9 @@
-module.exports = {
-    apps: [
-        {
-            name: 'onetwo.kz',
-            port: '3000',
-            exec_mode: 'cluster',
-            instances: 'max',
-            script: './.output/server/index.mjs',
-        }
-      ]
-}
+export const apps = [
+    {
+        name: 'onetwo',
+        port: '3000',
+        exec_mode: 'cluster',
+        instances: 'max',
+        script: './.output/server/index.mjs',
+    }
+];

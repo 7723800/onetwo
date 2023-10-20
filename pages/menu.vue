@@ -217,15 +217,15 @@ onMounted(() => {
           <div class="next"><svg viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.78788L8.48329 0L0 10L8.48329 20L10 18.2121L3.03342 10L10 1.78788Z"/></svg></div>
           <div class="prev"><svg viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.78788L8.48329 0L0 10L8.48329 20L10 18.2121L3.03342 10L10 1.78788Z"/></svg></div>
           <div class="swiper-container">
-            <div class="swiper-wrapper">
+            <!-- <div class="swiper-wrapper">
               <div v-for="category in categories" :key="category.id" class="swiper-slide" :class="{'active-menu': category.index === 0, 'dummy-category': !isPageLoaded }" @click="setActiveCategory(category.slug, category.index)"><span>{{ category.name }}</span></div>
-            </div>
+            </div> -->
           </div>
         </div>
           <div class="catalog-content">
             <!-- menu start -->
             <div class="catalog-content__menu">
-              <div v-for="item in menu" :key="item.id" :id="item.slug" class="product-wrapper">
+              <!-- <div v-for="item in menu" :key="item.id" :id="item.slug" class="product-wrapper">
                 <h3 class="title">{{ item.name }}</h3>
                 <div v-for="product in item.products" :key="product.id" class="product">
                   <div :ref="`product${product.id}`" @click="wideImage(product.id)" class="product-image">
@@ -244,7 +244,7 @@ onMounted(() => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <!-- menu end -->
             <!-- <div class="desktop-sidebar">

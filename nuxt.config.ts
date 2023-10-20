@@ -4,33 +4,34 @@ export default defineNuxtConfig({
     css: {
         preprocessorOptions: {
             scss: {
-                additionalData: '@import "@/assets/scss/app.scss";',
+                additionalData: '@import "@/assets/scss/main.scss";',
             },
         },
     },
   },
   modules: [
-    '@pinia/nuxt',
-    'nuxt-lazy-load'
+    '@pinia/nuxt'
   ],
   devtools: {
     enabled: true
   },
-  devServer: {
-    port: 8080,
-  },
-  lazyLoad: {
-    images: true,
-    videos: true,
-    audios: true,
-    iframes: true,
-    native: false,
-    directiveOnly: true,
-    loadingClass: 'isLoading',
-    loadedClass: 'isLoaded',
-    appendClass: 'lazyLoad',
-    observerConfig: {
-      // See IntersectionObserver documentation
-    }
-  },
+  // lazyLoad: {
+  //   images: true,
+  //   videos: true,
+  //   audios: true,
+  //   iframes: true,
+  //   native: false,
+  //   directiveOnly: true,
+  //   loadingClass: 'isLoading',
+  //   loadedClass: 'isLoaded',
+  //   appendClass: 'lazyLoad',
+  //   observerConfig: {
+  //     // See IntersectionObserver documentation
+  //   }
+  // },
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.API_BASE_URL,
+    },
+  }
 })
