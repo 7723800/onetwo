@@ -2,19 +2,26 @@
 // import { ref, onMounted, onActivated, onBeforeMount } from 'vue'
 import { DummyMenu } from '#components'
 import Swiper from 'swiper';
+import { useMenuStore } from "@/stores/menu"
+import { storeToRefs } from 'pinia'
 
 const isPageLoaded = ref<boolean>(false)
 const totalSliders = reactive([])
 let populars: Array<Product> = reactive([])
-let categories: Array<Category> = reactive([])
+  
 const sliders = reactive([])
+const menuStore = useMenuStore()
+const { categories } = storeToRefs(menuStore)
+
+const { setCategories } = menuStore
 
 const showProductCard = async () => {
   const { data, error, pending } = await useApiFetch<MenuResponse>("/v1/menu", { 
     method: "POST"
   })
-  categories = data.value!.data
-  populars = categories[0].products
+  // categories = data.value!.data
+  populars = data.value!.data[0].products
+  setCategories(data.value!.data)
   isPageLoaded.value = true
 }
 
@@ -58,6 +65,7 @@ onBeforeMount(() => {
         <!-- <div v-show="isPageLoaded && totalSliders.length > 2" class="next-events"><svg viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.78788L8.48329 0L0 10L8.48329 20L10 18.2121L3.03342 10L10 1.78788Z"/></svg></div>
         <div v-show="isPageLoaded && totalSliders.length > 2" class="prev-events"><svg viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.78788L8.48329 0L0 10L8.48329 20L10 18.2121L3.03342 10L10 1.78788Z"/></svg></div> -->
       </section>
+
       <!-- mobile intro end -->
       <section class="home-popular">
         <h1 class="title">Популярное</h1>
@@ -77,6 +85,7 @@ onBeforeMount(() => {
           </div>
         </Transition>
         <!-- mobile populars end -->
+
         <!-- widescreen populars start -->
         <div class="menu-widescreen menu-widescreen__popular">
             <DummyMenu v-if="!isPageLoaded"></DummyMenu>
@@ -104,7 +113,7 @@ onBeforeMount(() => {
         <Transition name="fade-dummy" mode="out-in">
           <DummyMenu v-if="!isPageLoaded"></DummyMenu>
           <div v-else class="menu">
-            <NuxtLink v-for="category in categories" class="menu-item">
+            <NuxtLink v-for="category in categories" :to="`/menu/${category.slug}`" class="menu-item">
               <div class="menu-image">
                 <img :src="category.imageUrl" />
               </div>
@@ -180,9 +189,9 @@ onBeforeMount(() => {
   }
 }
 .home {
-    margin-top: 3rem;
+    // margin-top: 1rem;
   section {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     h1 {
       margin-bottom: 1rem;
     }

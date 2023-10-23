@@ -50,9 +50,10 @@ const totalPrice = computed({
     }
 })
 
-console.log(route.name);
+// console.log(route.params.slug);
 
 onMounted(() => {
+  // console.log(route.params.slug);
     // headerShadow(route.name ? route.name : "")
     closeDropdown()
 })
@@ -166,8 +167,8 @@ onMounted(() => {
   <style lang="scss">
   $grey-color: #999;
   .header {
-    position: fixed;
-    top: 0;
+    // position: fixed;
+    // top: 0;
     height: $header-height;
     background-color: white;
     z-index: 101;

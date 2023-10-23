@@ -2,7 +2,8 @@
 import Swiper from 'swiper';
 import ProductCard from "#components"
 import { useMenuStore } from "@/stores/menu"
-
+import { storeToRefs } from 'pinia'
+const route = useRoute()
 const isProductCard = ref<boolean>(false)
 const activeProduct = ref<object>({})
 const productCardKey = ref<number>(0)
@@ -11,8 +12,12 @@ const currentIndex = ref<number>(0)
 const slideToIndex = ref<string>('')
 const isSlideTo = ref<boolean>(false)
 const isPageLoaded = ref<boolean>(false)
-const route = useRoute()
-const store = useMenuStore()
+const menuStore = useMenuStore()
+const { categories } = storeToRefs(menuStore)
+
+// const store = useMenuStore()
+
+// console.log(menu);
 
 const wideImage = (id: string) => {
   // const [productImage] = $refs[`product${id}`]
@@ -20,7 +25,7 @@ const wideImage = (id: string) => {
 }
 
 const showProductCard = (product: any) => { //FIXME: Добавить тип параметра
-  productCardKey.value++
+  // productCardKey.value++
   // this.$nextTick(() => {
   //   this.activeProduct = product
   //   this.isProductCard = true
@@ -28,27 +33,27 @@ const showProductCard = (product: any) => { //FIXME: Добавить тип п�
 }
 
 const closeProductCard = (id: string ) => {
-  isProductCard.value = false;
+  // isProductCard.value = false;
   if (id) {
     // const [productImage] = this.$refs[`product${id}`]
     // if (productImage) productImage.classList.remove('product-image__wide');
   }
 }
 
-const totalInBasket = computed({
-    get() {
-        return 0
-    },
-    set(newValue) {
+// const totalInBasket = computed({
+//     get() {
+//         return 0
+//     },
+//     set(newValue) {
         
-    }
-})
+//     }
+// })
 
 onBeforeMount(() => {
   // slideToIndex.value = route.query?.c
 })
 onMounted(() => {
-  isPageLoaded.value = true
+  // isPageLoaded.value = true
 })
 
 // export default {
@@ -213,23 +218,23 @@ onMounted(() => {
   <section class="catalog">
     <div class="container">
       <div class="catalog-inner">
-        <div class="catalog-nav">
-          <div class="next"><svg viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.78788L8.48329 0L0 10L8.48329 20L10 18.2121L3.03342 10L10 1.78788Z"/></svg></div>
-          <div class="prev"><svg viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.78788L8.48329 0L0 10L8.48329 20L10 18.2121L3.03342 10L10 1.78788Z"/></svg></div>
-          <div class="swiper-container">
+        <!-- <div class="catalog-nav"> -->
+          <!-- <div class="next"><svg viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.78788L8.48329 0L0 10L8.48329 20L10 18.2121L3.03342 10L10 1.78788Z"/></svg></div>
+          <div class="prev"><svg viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.78788L8.48329 0L0 10L8.48329 20L10 18.2121L3.03342 10L10 1.78788Z"/></svg></div> -->
+          <!-- <div class="swiper-container"> -->
             <!-- <div class="swiper-wrapper">
               <div v-for="category in categories" :key="category.id" class="swiper-slide" :class="{'active-menu': category.index === 0, 'dummy-category': !isPageLoaded }" @click="setActiveCategory(category.slug, category.index)"><span>{{ category.name }}</span></div>
             </div> -->
-          </div>
-        </div>
+          <!-- </div> -->
+        <!-- </div> -->
           <div class="catalog-content">
             <!-- menu start -->
             <div class="catalog-content__menu">
-              <!-- <div v-for="item in menu" :key="item.id" :id="item.slug" class="product-wrapper">
-                <h3 class="title">{{ item.name }}</h3>
-                <div v-for="product in item.products" :key="product.id" class="product">
+              <div v-for="category in categories" :key="category.id" :id="category.slug" class="product-wrapper">
+                <h3 class="title">{{ category.name }}</h3>
+                <div v-for="product in category.products" :key="product.id" class="product">
                   <div :ref="`product${product.id}`" @click="wideImage(product.id)" class="product-image">
-                    <img v-lazy="product.pictures[0]"/>
+                    <img :src="product.imageUrl"/>
                   </div>
                   <div class="product-content">
                     <div @click="wideImage(product.id)" class="product-name">{{ product.name }}</div>
@@ -237,14 +242,14 @@ onMounted(() => {
                     </div>
                     <div class="product-action">
                       <div class="product-price-wrap">
-                        <div v-if="product.oldPrice" class="product-old-price">{{ product.extra_prices ? 'от ' : '' }}{{ product.oldPrice.toLocaleString('ru-RU') }} ₸</div>
-                        <div class="product-price">{{ product.extra_prices ? 'от ' : '' }}{{ product.price.toLocaleString('ru-RU') }} ₸</div>
+                        <!-- <div v-if="product.oldPrice" class="product-old-price">{{ product.extra_prices ? 'от ' : '' }}{{ product.oldPrice.toLocaleString('ru-RU') }} ₸</div> -->
+                        <div class="product-price">{{ product.price.toLocaleString('ru-RU') }} ₸</div>
                       </div>
-                      <button @click="showProductCard(product)" class="product-btn" :class="{ 'in-basket': product.quantity }">{{ product.quantity ? 'Изменить' : 'Добавить' }}</button>
+                      <!-- <button @click="showProductCard(product)" class="product-btn" :class="{ 'in-basket': product.quantity }">{{ product.quantity ? 'Изменить' : 'Добавить' }}</button> -->
                     </div>
                   </div>
                 </div>
-              </div> -->
+              </div>
             </div>
             <!-- menu end -->
             <!-- <div class="desktop-sidebar">
@@ -262,7 +267,7 @@ onMounted(() => {
               <div v-else class="footer-empty">Ваша корзина пуста</div>
             </div> -->
           </div>
-        <ProductCard :isShow="isProductCard" @closeProductCard="closeProductCard" :product="activeProduct" :key="productCardKey"></ProductCard>
+        <!-- <ProductCard :isShow="isProductCard" @closeProductCard="closeProductCard" :product="activeProduct" :key="productCardKey"></ProductCard> -->
       </div>
     </div>
   </section>
@@ -406,7 +411,7 @@ $nav-height: 36px;
     }
   }
   &-content {
-    padding-top: $nav-height;
+    // padding-top: $nav-height;
     margin-left: -1rem;
     scroll-behavior: smooth;
     @include get-media($laptop, $desktop) {

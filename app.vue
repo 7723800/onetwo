@@ -5,7 +5,20 @@ import { Header, Footer } from '#components'
 <template>
   <div>
     <Header />
-    <NuxtPage />
-    <Footer />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+      <Footer />
   </div>
 </template>
+
+<style lang="scss">
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.4s;
+}
+.page-enter-from,
+.page-enter-to {
+  opacity: 0;
+}
+</style>
